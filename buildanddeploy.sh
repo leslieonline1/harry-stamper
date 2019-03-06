@@ -1,19 +1,5 @@
 #!/bin/bash
 
-
-# Deploy the infrastructure
-echo 'Running Terraform, enter yes if you are comfortable with the changes'
-
-terraform plan terraform/
-terraform apply terraform/
-
-if [ $? -ne 0 ]
-then
- echo 'Terraform run failed'
- exit 1
-fi
-
-
 # Build, package and upload the app
 echo 'Building, packaging and uploading the function to S3'
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main app/main.go
@@ -29,5 +15,19 @@ aws s3 cp harryStamper.zip s3://harry-stamper-eu-west-1/harryStamper.zip
 if [ $? -ne 0 ]
 then
  echo 'Build, package or upload failed'
+ exit 1
+fi
+
+# Deploy the infrastructure
+echo 'Running Terraform, enter yes if you are comfortable with the changes'
+
+cd terraform
+terraforom init
+terraform plan
+terraform apply
+
+if [ $? -ne 0 ]
+then
+ echo 'Terraform run failed'
  exit 1
 fi

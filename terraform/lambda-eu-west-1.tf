@@ -11,7 +11,7 @@ resource "aws_lambda_function" "harryStamper-eu-west-1" {
 
   environment = {
     variables = {
-      AWS_REGION = "eu-west-1"
+      this_region = "eu-west-1"
     }
   }
 
@@ -35,6 +35,27 @@ resource "aws_iam_role" "lambda_exec-eu-west-1" {
       "Effect": "Allow",
       "Sid": ""
     }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "dynamodb_lambda_exec-eu-west-1" {
+  name = "dynamodb_lambda_exec-eu-west-1"
+  role = "${aws_iam_role.lambda_exec-eu-west-1.id}"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Action": [
+              "dynamodb:PutItem",
+              "dynamodb:GetItem"
+          ],
+          "Resource": "*"
+      }
   ]
 }
 EOF
