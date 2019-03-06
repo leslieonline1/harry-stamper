@@ -3,11 +3,17 @@ resource "aws_lambda_function" "harryStamper-eu-west-1" {
 
   function_name = "harryStamper"
 
-  s3_bucket = "harry-stamper"
+  s3_bucket = "harry-stamper-eu-west-1"
   s3_key    = "harryStamper.zip"
 
   handler = "main"
   runtime = "go1.x"
+
+  environment = {
+    variables = {
+      AWS_REGION = "eu-west-1"
+    }
+  }
 
   role = "${aws_iam_role.lambda_exec-eu-west-1.arn}"
 }
@@ -15,7 +21,7 @@ resource "aws_lambda_function" "harryStamper-eu-west-1" {
 resource "aws_iam_role" "lambda_exec-eu-west-1" {
   provider = "aws.eu-west-1"
 
-  name = "harryStamper_lambda"
+  name = "harryStamper_lambda-eu-west-1"
 
   assume_role_policy = <<EOF
 {
@@ -39,7 +45,7 @@ resource "aws_api_gateway_resource" "proxy-eu-west-1" {
 
   rest_api_id = "${aws_api_gateway_rest_api.harryStamper-eu-west-1.id}"
   parent_id   = "${aws_api_gateway_rest_api.harryStamper-eu-west-1.root_resource_id}"
-  path_part   = "/app"
+  path_part   = "app"
 }
 
 resource "aws_api_gateway_method" "proxy-eu-west-1" {

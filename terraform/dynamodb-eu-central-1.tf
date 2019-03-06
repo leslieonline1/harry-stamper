@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "harryStamper-eu-north-1" {
-  provider = "aws.eu-north-1"
+resource "aws_dynamodb_table" "harryStamper-eu-central-1" {
+  provider = "aws.eu-central-1"
 
   hash_key         = "Timestamp"
   name             = "harryStamper"
