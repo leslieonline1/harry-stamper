@@ -14,10 +14,10 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main app
 zip harryStamper.zip main
 
 aws s3api create-bucket --bucket harry-stamper-eu-central-1 --region eu-central-1 --create-bucket-configuration LocationConstraint=eu-central-1
-aws s3 cp harryStamper.zip s3://harry-stamper-eu-central-1/harryStamper-$version.zip
+aws s3 cp harryStamper.zip s3://harry-stamper-eu-central-1/harryStamper-$version.zip --region eu-central-1
 
 aws s3api create-bucket --bucket harry-stamper-eu-west-1 --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
-aws s3 cp harryStamper.zip s3://harry-stamper-eu-west-1/harryStamper-$version.zip
+aws s3 cp harryStamper.zip s3://harry-stamper-eu-west-1/harryStamper-$version.zip --region eu-west-1
 
 if [ $? -ne 0 ]
 then
