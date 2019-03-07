@@ -4,7 +4,7 @@ resource "aws_lambda_function" "harryStamper-eu-central-1" {
   function_name = "harryStamper"
 
   s3_bucket = "harry-stamper-eu-central-1"
-  s3_key    = "harryStamper.zip"
+  s3_key    = "harryStamper-${var.app_version}.zip"
 
   handler = "main"
   runtime = "go1.x"

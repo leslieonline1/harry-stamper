@@ -19,7 +19,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	if err != nil {
 		return events.APIGatewayProxyResponse{Body: "Error writing timestamp to the database" + err.Error(), StatusCode: 500}, nil
 	} else {
-		return events.APIGatewayProxyResponse{StatusCode: 200}, nil
+		return events.APIGatewayProxyResponse{Body: "Timestamp recorded successfully", StatusCode: 200}, nil
 	}
 
 }

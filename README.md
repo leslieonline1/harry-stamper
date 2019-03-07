@@ -16,6 +16,11 @@ The following is required locally:
 
 ```sh
 $ cd harry-stamper
-$ bash buildanddeploy.sh
+$ bash buildanddeploy.sh VERSION
 ```
-The function will be built and uploaded to an S3 bucket.  Terraform will be invoked and you will be prompted before committing changes to the infrastructure
+Where VERSION is an incrementing version of the code. The function will be built and uploaded to an S3 bucket.  Terraform will be invoked and you will be prompted before committing changes to the infrastructure.  The regional endpoints will be displayed at the end of the run, and you can test each endpoint by doing
+
+```sh
+$ curl -X POST xxxxx.amazonaws.com/production/app
+$ Timestamp recorded successfully
+```
