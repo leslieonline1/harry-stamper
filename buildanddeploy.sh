@@ -20,14 +20,13 @@ aws s3api create-bucket --bucket harry-stamper-eu-west-1 --region eu-west-1 --cr
 aws s3 cp harryStamper.zip s3://harry-stamper-eu-west-1/harryStamper-$version.zip --region eu-west-1
 
 if [ $? -ne 0 ]
-then
+then 
  echo 'Build, package or upload failed'
  exit 1
 fi
 
 # Deploy the infrastructure
 echo 'Running Terraform, enter yes if you are comfortable with the changes'
-
 cd terraform
 terraform init
 terraform apply -var="app_version=$version"
